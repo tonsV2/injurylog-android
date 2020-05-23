@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Filter by tags..."
+        app:layout_constraintBottom_toTopOf="@id/textviewTags"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,24 +21,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/hello_first_fragment"
+        app:layout_constraintBottom_toTopOf="@id/injuriesList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textviewSearch" />
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/injuriesList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textviewTags">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/injuriesList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/injury_item" />
-
-    </ScrollView>
+        app:layout_constraintTop_toBottomOf="@id/textviewTags"
+        tools:listitem="@layout/injury_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

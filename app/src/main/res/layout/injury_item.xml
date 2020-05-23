@@ -12,23 +12,23 @@
         android:padding="8dp">
 
         <TextView
-            android:id="@+id/runName"
+            android:id="@+id/occurredAt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:text="Name"
+            android:text="OccurredAt"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <TextView
-            android:id="@+id/runDescription"
+            android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:text="Description"
             android:maxLines="2"
-            android:layout_below="@id/runName" />
+            android:layout_below="@id/occurredAt" />
 
     </RelativeLayout>
 

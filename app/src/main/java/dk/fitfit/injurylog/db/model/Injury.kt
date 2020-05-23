@@ -5,21 +5,14 @@ import java.time.LocalDateTime
 import java.time.ZoneOffset
 
 @Entity
-data class Tag(
-    val name: String,
-    override val updated: Long?,
-    val created: LocalDateTime,
-    @PrimaryKey(autoGenerate = false) val id: Long
-) : UpdatableEntity
-
-@Entity
 data class Injury(
     val description: String,
     val occurredAt: LocalDateTime,
     val loggedAt: LocalDateTime,
     override val updated: Long?,
     val created: LocalDateTime,
-    @PrimaryKey(autoGenerate = false) val id: Long
+    @PrimaryKey(autoGenerate = false)
+    val id: Long
 ) : UpdatableEntity
 
 @Entity(

@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -80,7 +79,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 val oauthTokens = loginService.login(Credentials("google", token))
                 accessTokenStorage.store(oauthTokens.accessToken, oauthTokens.refreshToken, oauthTokens.expiresIn)
-                Navigation.findNavController(this@MainActivity, R.id.nav_host_fragment).navigate(R.id.action_HomeFragment_to_InjuriesFragment)
+//                Navigation.findNavController(this@MainActivity, R.id.nav_host_fragment).navigate(R.id.action_HomeFragment_to_InjuriesFragment)
             } catch (e: HttpException) {
                 e.printStackTrace()
             }
