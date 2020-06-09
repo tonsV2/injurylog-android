@@ -7,6 +7,7 @@ import dk.fitfit.injurylog.api.AccessTokenInterceptor
 import dk.fitfit.injurylog.api.AccessTokenStorage
 import dk.fitfit.injurylog.api.service.InjuryService
 import dk.fitfit.injurylog.api.service.LoginService
+import dk.fitfit.injurylog.api.service.TagService
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -25,6 +26,7 @@ val apiModule = module {
     single { provideRetrofit(get(), get()) }
     single { get<Retrofit>().create(LoginService::class.java) }
     single { get<Retrofit>().create(InjuryService::class.java) }
+    single { get<Retrofit>().create(TagService::class.java) }
 }
 
 private fun provideRetrofit(httpClient: OkHttpClient, gson: Gson) = Retrofit.Builder()

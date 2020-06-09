@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 @Entity
 data class Tag(
     val name: String,
-    override val updated: Long?,
+    override val updated: LocalDateTime,
     val created: LocalDateTime,
     @PrimaryKey(autoGenerate = false)
     val id: Long

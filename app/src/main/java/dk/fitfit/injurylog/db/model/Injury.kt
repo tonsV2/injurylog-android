@@ -2,14 +2,13 @@ package dk.fitfit.injurylog.db.model
 
 import androidx.room.*
 import java.time.LocalDateTime
-import java.time.ZoneOffset
 
 @Entity
 data class Injury(
     val description: String,
     val occurredAt: LocalDateTime,
     val loggedAt: LocalDateTime,
-    override val updated: Long?,
+    override val updated: LocalDateTime,
     val created: LocalDateTime,
     @PrimaryKey(autoGenerate = false)
     val id: Long
@@ -31,7 +30,7 @@ data class Injury(
         )
     ]
 )
-data class InjuryTagsCrossRef(
+data class InjuryTagsCrossReference(
     val injuryId: Long,
     val tagId: Long
 )
@@ -42,9 +41,52 @@ data class InjuryWithTags(
     @Relation(
         parentColumn = "id",
         entityColumn = "id",
-        associateBy = Junction(InjuryTagsCrossRef::class, parentColumn = "tagId", entityColumn = "injuryId")
+        associateBy = Junction(InjuryTagsCrossReference::class, parentColumn = "injuryId", entityColumn = "tagId")
     )
     val tags: List<Tag>
 )
 
-fun LocalDateTime.toEpochMilli() = this.toInstant(ZoneOffset.UTC).toEpochMilli()
+@Entity(
+    primaryKeys = ["injuryId", "imageReferenceId"],
+    indices = [Index("injuryId"), Index("imageReferenceId")],
+    foreignKeys = [
+        ForeignKey(
+            entity = Injury::class,
+            parentColumns = ["id"],
+            childColumns = ["injuryId"]
+        ),
+        ForeignKey(
+            entity = ImageReference::class,
+            childColumns = ["imageReferenceId"],
+            parentColumns = ["id"]
+        )
+    ]
+)
+data class InjuryImageReferencesCrossReference(
+    val injuryId: Long,
+    val imageReferenceId: Long
+)
+
+@Entity
+data class ImageReference(
+    override val updated: LocalDateTime,
+    @PrimaryKey(autoGenerate = false)
+    val id: Long
+) : UpdatableEntity
+
+data class InjuryWithTagsAndImageReferences(
+    @Embedded
+    val injury: Injury,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "id",
+        associateBy = Junction(InjuryTagsCrossReference::class, parentColumn = "tagId", entityColumn = "injuryId")
+    )
+    val tags: List<Tag>,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "id",
+        associateBy = Junction(InjuryImageReferencesCrossReference::class, parentColumn = "imageReferenceId", entityColumn = "injuryId")
+    )
+    val imageReferences: List<ImageReference>
+)

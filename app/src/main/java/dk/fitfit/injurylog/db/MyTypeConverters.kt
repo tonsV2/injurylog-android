@@ -7,13 +7,8 @@ import java.time.ZoneOffset
 
 class MyTypeConverters {
     @TypeConverter
-    fun fromLocalDateTime(localDateTime: LocalDateTime?): Long? = localDateTime?.toInstant(ZoneOffset.UTC)?.toEpochMilli()
+    fun fromLocalDateTime(localDateTime: LocalDateTime): Long = localDateTime.toInstant(ZoneOffset.UTC).toEpochMilli()
 
     @TypeConverter
-    fun toLocalDateTime(millisSinceEpoch: Long?): LocalDateTime? {
-        return millisSinceEpoch?.let {
-            val epochMilli = Instant.ofEpochMilli(it)
-            LocalDateTime.ofInstant(epochMilli, ZoneOffset.UTC)
-        }
-    }
+    fun toLocalDateTime(millisSinceEpoch: Long): LocalDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(millisSinceEpoch), ZoneOffset.UTC)
 }
